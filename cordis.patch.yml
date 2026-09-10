@@ -1,6 +1,16 @@
 # dsh-headless-resume: standalone headless runner with --resume support.
 # Profile bundles: [dsh-base, this-package]  (no dsh-headless needed)
 
+- id: system-prompt
+  config:
+    personaSuffix: Your working directory is {{cwd}}.
+    personaPrefix: >-
+      You are a coding agent powered by the {{model}} model.
+
+- id: tools
+  config:
+    mode: !!js process.env.DSH_TOOLS_MODE
+
 - insert:
     - id: code-runtime
       name: '@deepseek-ai/dsh-code-runtime-worker-thread'
@@ -13,3 +23,4 @@
       inject: [headlessStartup]
       config:
         task: !!js ctx.headlessStartup.task
+        resume: !!js ctx.headlessStartup.resume
