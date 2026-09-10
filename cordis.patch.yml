@@ -1,18 +1,5 @@
 # dsh-headless-resume: standalone headless runner with --resume support.
-# This plugin INSERTS its own startup + runner directly on dsh-base,
-# replacing the need for @deepseek-ai/dsh-headless entirely.
-#
-# Profile bundles should be: [dsh-base, dsh-headless-resume]  (NOT dsh-headless)
-
-- id: system-prompt
-  config:
-    personaSuffix: Your working directory is {{cwd}}.
-    personaPrefix: >-
-      You are a coding agent powered by the {{model}} model.
-
-- id: tools
-  config:
-    mode: !!js process.env.DSH_TOOLS_MODE
+# Profile bundles: [dsh-base, this-package]  (no dsh-headless needed)
 
 - insert:
     - id: code-runtime
