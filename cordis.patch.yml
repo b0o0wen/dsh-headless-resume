@@ -26,4 +26,4 @@
       inject: [headlessStartup]
       config:
         task: !!js ctx.headlessStartup.task
-        resume: !!js ctx.headlessStartup.resume
+        resume: !!js (ctx.headlessStartup.resume || "")
