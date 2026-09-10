@@ -1,0 +1,15 @@
+# dsh-headless-resume: replaces headless startup + runner with resume-capable versions.
+# The startup module adds --resume <id> to the Commander program.
+# The runner consumes both task and resume, using agents.resume() when resume is present.
+
+# Override the original headless-startup to also parse --resume
+- id: headless-startup
+  name: '@b0o0wen/dsh-headless-resume/lib/startup'
+
+# Override the original headless-runner to use our resume-capable version
+- id: headless-runner
+  name: '@b0o0wen/dsh-headless-resume'
+  inject: [headlessStartup]
+  config:
+    task: !!js ctx.headlessStartup.task
+    resume: !!js ctx.headlessStartup.resume
