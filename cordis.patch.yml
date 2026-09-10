@@ -1,15 +1,29 @@
-# dsh-headless-resume: replaces headless startup + runner with resume-capable versions.
-# The startup module adds --resume <id> to the Commander program.
-# The runner consumes both task and resume, using agents.resume() when resume is present.
+# dsh-headless-resume: standalone headless runner with --resume support.
+# This plugin INSERTS its own startup + runner directly on dsh-base,
+# replacing the need for @deepseek-ai/dsh-headless entirely.
+#
+# Profile bundles should be: [dsh-base, dsh-headless-resume]  (NOT dsh-headless)
 
-# Override the original headless-startup to also parse --resume
-- id: headless-startup
-  name: '@b0o0wen/dsh-headless-resume/lib/startup'
-
-# Override the original headless-runner to use our resume-capable version
-- id: headless-runner
-  name: '@b0o0wen/dsh-headless-resume'
-  inject: [headlessStartup]
+- id: system-prompt
   config:
-    task: !!js ctx.headlessStartup.task
-    resume: !!js ctx.headlessStartup.resume
+    personaSuffix: Your working directory is {{cwd}}.
+    personaPrefix: >-
+      You are a coding agent powered by the {{model}} model.
+
+- id: tools
+  config:
+    mode: !!js process.env.DSH_TOOLS_MODE
+
+- insert:
+    - id: code-runtime
+      name: '@deepseek-ai/dsh-code-runtime-worker-thread'
+
+    - id: headless-startup
+      name: '@b0o0wen/dsh-headless-resume/lib/startup'
+
+    - id: headless-runner
+      name: '@b0o0wen/dsh-headless-resume'
+      inject: [headlessStartup]
+      config:
+        task: !!js ctx.headlessStartup.task
+        resume: !!js ctx.headlessStartup.resume

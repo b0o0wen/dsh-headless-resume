@@ -1,7 +1,7 @@
 {
   "name": "@b0o0wen/dsh-headless-resume",
-  "version": "0.1.0",
-  "description": "dsh headless runner with --resume support: one-shot + session continuation for non-interactive agent workflows",
+  "version": "0.3.0",
+  "description": "dsh headless runner with --resume: standalone profile layer replacing dsh-headless",
   "main": "lib/index.js",
   "type": "module",
   "license": "MIT",
@@ -18,5 +18,5 @@
     "cordis": "*"
   },
   "repository": "github:b0o0wen/dsh-headless-resume",
-  "keywords": ["dsh", "deepseek", "headless", "resume", "polyreview", "agent", "session"]
+  "keywords": ["dsh", "deepseek", "headless", "resume", "polyreview", "session"]
 }
