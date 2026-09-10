@@ -19,7 +19,7 @@
       name: '@deepseek-ai/dsh-code-runtime-worker-thread'
 
     - id: headless-startup
-      name: '@b0o0wen/dsh-headless-resume/lib/startup'
+      name: '@b0o0wen/dsh-headless-resume/lib/startup.js'
 
     - id: headless-runner
       name: '@b0o0wen/dsh-headless-resume'
